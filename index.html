@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+<div class="tab">
+  <button class="tablinks" id = "defaultOpen" onclick="openTab(event, 'Visualizations')">Visualizations</button>
+  <button class="tablinks" onclick="openTab(event, 'Acknowledgements')">Acknowledgements</button>
+  <button class="tablinks" onclick="openTab(event, 'Data Processing')">Data Processing</button>
+</div>
+<div id="Visualizations" class="tabcontent" >
+<div id="page-container" class="all-charts">
+<div id="main-displays" class="selection-and-radial">
+
+  <svg id="radial" width="400px" height="400px">
+
+  </svg>
+  <div id = "info-boxes"  >
+    <div id = "blue-range"><span>Blue Selection:</span></div>
+    <div id = "red-range"><span>Red Selection:</span></div>
+  </div>
+  <svg width="400" height="100" id="selection">
+
+  </svg>
+</div>
+<div id="auxiliary-displays">
+
+</div>
+</div>
+</div>
+<div id="Acknowledgements" class="tabcontent">
+  <h1><u>Data Sources Used</u></h1>
+  <ol>
+    <li><em><a href="https://www.kaggle.com/datasets/timoboz/stock-data-dow-jones/discussion">
+      EOD Data for all DOW Jones Stocks (Feb 2014 - Feb 2019)</a></em></li>
+  </ol>
+  <h1><u>Code References</u></h1>
+  <ol>
+    <li><em>
+      <a href="https://observablehq.com/@thetylerwolf/day-17-radial-bar-chart">
+        D3 Radial Bar Chart
+      </a></em></li>
+
+    <li><em>
+      <a href="https://observablehq.com/@d3/line-chart/2?intent=fork">
+        D3 Line Chart
+      </a></em></li>
+    <li><em>
+      <a href="https://www.petercollingridge.co.uk/tutorials/svg/interactive/dragging/">
+        D3 Draggable
+      </a></em></li>
+    <li><em>
+      <a href="https://www.w3schools.com/howto/howto_js_tabs.asp">
+        CSS/JS Tabs
+      </a></em></li>
+  </ol>
+</div>
+<div id="Data Processing" class="tabcontent">
+  <h1><u>How "EOD Data for all DOW Jones Stocks" was processed </u></h1>
+  <ol>
+    <li>All csv files were converted to json equivalents.</li>
+    <li>Average time series file to represent index was created, ignoring DWDP index due to mismatched time domain.</li>
+    <li>the following headers were dropped: ['unadjustedVolume', 'change', 'changePercent', 'label', 'changeOverTime'] from both files.</li>
+    <li>File imported into linked javascript script</li>
+    <li>In all selection based graphs, temporal data is either mapped to the earlier of the two selections, or to a neutral third time domain. This data is then fed to the graphs before displaying.</li>
+    <li>Only for the case of Feb 2014, we fill the first 20 days (originally missing) with the value of Feb 21st 2014 for properly projecting data in all graphs.</li>
+  </ol>
+
+  **All visualizations currently based off of "close" price value.
+
+</div>
+
+
+  </br>
+
+  <script type="module" src="js/app.js"></script>
+
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+</script>
+</body>
+
+</html>
